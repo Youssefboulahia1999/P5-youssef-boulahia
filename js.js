@@ -152,7 +152,7 @@
 
 
 
-
+//le code n'est de moi pascal je les prit comme exemple pour comprendre mais je n'arrive pas a le faire de moi
 
 
 

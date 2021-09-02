@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>
+        formulaire de contact
+    </h2>
+    <form action="">
+       <fieldset>
+           <legend><strong>genre</strong></legend>
+      <p>
+          <input type="radio" name="genre" id="homme" value="homme">
+          <label for="homme">homme</label>
+      </p>
+      <p>
+        <input type="radio" name="genre" id="femme" value="femme">
+        <label for="homme">femme</label>
+    </p>
+        </fieldset> 
+
+        <fieldset>
+            <legend><strong>nom et prenom</strong></legend>
+<p>
+    <label for="nom">Nom :</label>
+    <input type="text" name="nom" id="nom" >
+</p>
+<p>
+    <label for="nom">prenom :</label>
+    <input type="text" name="prenom" id="prenom" >
+</p>
+        </fieldset>
+
+        <fieldset>
+<legend><strong>commentaire </strong></legend>
+<textarea name="text formulaire" id="textformulaire" cols="30" rows="10"></textarea>
+
+        </fieldset>
+
+    </form>
+    <button>envoyer formulaire</button>
+
+    <h2>donnes stockees</h2>
+    <p>le genre est :<span id="leGenre"></span></p>
+    <p>le nom est : <span id="leNom"></span></p>
+    <p>le prenom est : <span id="lePrenom"></span></p>
+    <p>le texte entre <span id="leTexte"></span> </p>
+
+ <script src="./formulaire.js"></script>
+</body>
+</html>
