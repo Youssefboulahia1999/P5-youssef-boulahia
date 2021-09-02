@@ -26,7 +26,7 @@
 // //     document.getElementById("main").innerHTML +=
 // //     `
 // //     <div class="tete">
-// //     <a class="clik" href = "./article/index.html" >
+// //     <a class="clik" href = "./article/index.html?id=${data._id}" >
 // //     <img src="${data.imageUrl}">
 // //     <div class="text">
 // //     <h2>${data.name}<h2>
@@ -74,15 +74,15 @@
 
 // function displayArticles() {
 //     document.getElementById("main").innerHTML += ` 
+//     <a class="clik" href="./article/index.html?id=${._id}">
 //     <article class="tete">
-//     <a class="clik" href="./article/index.html">
 //         <img src="">
 //         <div class="text">
 //             <h2><h2>
 //                     <p><p>
 //         </div>
-//     </a>
 // </article>`
+//     </a>
 // }
 
 
@@ -114,7 +114,7 @@
 //     });
 
 // const cree_une_div = `
-//              <a class="clik" href="./article/index.html">
+//              <a class="clik" href="./article/index.html?id=${._id[i]}">
 //              <article class="tete">
 //                       <img src="${imgUrl =[i]}">
 //                       <div class="text">
@@ -130,7 +130,7 @@
 
 
 
-
+// _id = [];
 // let imgUrl = [];
 // let name = [];
 // let prince = [];
@@ -139,7 +139,11 @@
 // let i = [];
 
 // dataApi.forEach((element, i) => {
+//     _id[i] = element._id
 //     imageUrl[i] = element.imageUrl;
+//     name [i] = element.name;
+//     price [i] = element.price;
+//     description[i] = elementescription;
 // });
 
 // function affichageProduits(response) {
@@ -152,9 +156,13 @@
 
 
 
+
+
+
+
+
+
 //le code n'est de moi pascal je les prit comme exemple pour comprendre mais je n'arrive pas a le faire de moi
-
-
 
 
 // function createDiv(divId, product) {
