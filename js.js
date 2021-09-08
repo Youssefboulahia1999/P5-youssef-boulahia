@@ -201,3 +201,20 @@
 //         console.error(err);
 //     })
 // }
+
+
+
+//
+ 
+// function afficheDatas(data) {
+//     data.map(function(produit, index) {
+//      document
+//         .querySelector(".product_sheet_camera")
+//         .insertAdjacentHTML("beforebegin","<div id='"+produit._id+"'>"
+//         +"<p>Image :<img src='"+produit.imageUrl+"' alt='image_produit' /></p>"
+//         +"<p>Lenses :"+produit.lenses.join(" , ")+"</p>"
+//         +"<p>Name :"+produit.name+"</p>"
+//         +"<p>Price :"+produit.price+"</p>"
+//         +"</div>");
+//     });
+//   }
