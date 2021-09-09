@@ -31,38 +31,64 @@
 
 
 
-const queryString_url_id = window.location.search;
+// const queryString_url_id = window.location.search;
 
-//methode 1
-//const id = queryString_url_id.slice
+// //methode 1
+// //const id = queryString_url_id.slice
 
-//methode 2
-const urlSearchParams = new urlSearchParams(queryString_url_id)
-const id = urlSearchParams.get("id")
+// //methode 2
+// const urlSearchParams = new URLSearchParams(queryString_url_id)
+// const id = urlSearchParams.get("id")
+// console.log(id)
+// //afficher le produit avec id 
+// //methode 1
+// let dataApi = fetch("http://localhost:3000/api/cameras/"+id);
 
-//afficher le produit avec id 
-//methode 1
-let dataApi = await fetch("http://localhost:3000/api/cameras/${id}");
+// dataApi
+// .then(async (responseData) => {
+//    console.table(responseData);
 
-//methode 2 : utilisation de la méthode .find()
- console.log(response);
+//    camera = await responseData.json();
+//    console.table(camera);
+//   // document.getElementById("main").innerHTML = "ok" 
 
- const idProduitSelectiionner = response.find((element) => element._id === id);
+// //  creeDiv(response[0])
+// creeDiv(camera)
+//    try {
 
- const divProduit = document.querySelector(".article");
-const cree_une_div = `  
-<img src="${idProduitSelectiionner.imgUrl}">
+
+//    } catch (err) {
+//        console.log(err);
+//    }
+
+// });
+
+// function creePlusieurDiv(cameras) {
+// for (let i = 0; i < cameras.length; i++)
+// creeDiv(cameras[i])
+// }
+
+function creeDiv(data) {
+document.getElementById("main").innerHTML +=
+`
+<div class="tete">
+<img src="${data.imageUrl}">
 <div class="text">
-    <h2>$${idProduitSelectiionner.name}</h2>
-    <p>${idProduitSelectiionner.description}</p>
-    <p>${idProduitSelectiionner.price}</p>
-    `;
-divProduit.innerHTML = divProduit; 
+<h2>${data.name}<h2>
+<p>${data.price}<p>
+</div>
+<option id="option" class="option">
+</option>
+</div>`
+}
+
+
 
 
 //ajouter les option
-let creeDivOption = document.createElement(`option`);
-creeDivOption = element.appendChild(loge);
+divOption = document.getElementById("option")
+divOption.innerHTML += "ok"
+//let creeDivOption = document.createElement("option");
 for (b =0; b < lenses.length; b++){
     creeDivOption.innerHTML += `<option value="${b}">${lenses[b]}</option>`}
 
@@ -109,5 +135,5 @@ namProduit: idProduitSelectiionner.namProduit,
 id_ProduitSelectionner: idProduitSelectiionner.id_ProduitSelectionner,
 Option: option.DivOption,
 quantite: inputNombre.quantite,
-prix:idProduitSelectiionner.prix /100
+prix:(idProduitSelectiionner.prix * quantite) /100
 }
