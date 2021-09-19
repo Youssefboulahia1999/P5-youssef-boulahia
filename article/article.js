@@ -1,139 +1,130 @@
-// (async function () {
-//     const articleId = getArticleId()
-//     const article = await getArticle(articleId)
-//     hydrateArticle(article)
-// })()
+const queryString_url_id = window.location.search;
 
-// function getArticleId () {
-//     return new URL (location.href).searchParans.get("id")
-// }
+//methode 2
+const urlSearchParams = new URLSearchParams(queryString_url_id)
+const id = urlSearchParams.get("id")
+console.log(id)
+//afficher le produit avec id 
+//methode 1
+let dataApi = fetch("http://localhost:3000/api/cameras/"+id);
 
-// function getArticle(articleId) {
-//     return fetch(${articleId})
-//     .then(function(httpBodyResponse) {
-//         return httpBodyResponse.json()
-//     )}
-//     .then(function(articles) {
-//         return articles
-//     })
-//     .catch(function(error) {
-//         alert(error)
-//     })
-// }
+dataApi
+.then(async (responseData) => {
+   console.table(responseData);
 
-// function hydrateArticle(article) {
-//  document.getElementById("blog_tilte").textContent = article.title
-//  document.getElementById("blog_body").textContent = article.body
-// }
+   camera = await responseData.json();
+   console.table(camera);
+// document.getElementById("main").innerHTML = "ok" 
 
-//
+// creeDiv(response[0])
+creeDiv(camera)
+try {
+  console.log(camera.lenses)
+} catch (err) {
+    console.log(err);
+}
+
+});
 
 
-
-
-// const queryString_url_id = window.location.search;
-
-// //methode 1
-// //const id = queryString_url_id.slice
-
-// //methode 2
-// const urlSearchParams = new URLSearchParams(queryString_url_id)
-// const id = urlSearchParams.get("id")
-// console.log(id)
-// //afficher le produit avec id 
-// //methode 1
-// let dataApi = fetch("http://localhost:3000/api/cameras/"+id);
-
-// dataApi
-// .then(async (responseData) => {
-//    console.table(responseData);
-
-//    camera = await responseData.json();
-//    console.table(camera);
-//   // document.getElementById("main").innerHTML = "ok" 
-
-// //  creeDiv(response[0])
-// creeDiv(camera)
-//    try {
-
-
-//    } catch (err) {
-//        console.log(err);
-//    }
-
-// });
-
-// function creePlusieurDiv(cameras) {
-// for (let i = 0; i < cameras.length; i++)
-// creeDiv(cameras[i])
-// }
 
 function creeDiv(data) {
-document.getElementById("main").innerHTML +=
-`
-<div class="tete">
-<img src="${data.imageUrl}">
-<div class="text">
-<h2>${data.name}<h2>
-<p>${data.price}<p>
-</div>
-<option id="option" class="option">
-</option>
-</div>`
+    document.getElementById("main").innerHTML +=
+   `<div class="tete">
+    <img src="${data.imageUrl}">
+    <h2>${data.name}<h2>
+    <p>${data.price /100}€<p>
+    <select name="optionSelect" id="optionSelect"></select>
+    </div>
+    <button id="btMoins" id="btMoins" type="button">-</button>
+    <input type="text" id="quantite" value="1">
+    <button id="btPluss" id="btPlus" type="button">+</button>
+    <button id="valide" type"submit">Ajouter au panier</buttun>
+    </div>`;
 }
 
 
+// function creePlusOption(camera){
+// for (let z = 0; z < cameras.length; z++){
+// document.getElementById("#optionSelect").innerHTML +=`
+// <option value="${z}">${camera.lenses}</option>
+//`}
+// }
 
 
-//ajouter les option
-divOption = document.getElementById("option")
-divOption.innerHTML += "ok"
-//let creeDivOption = document.createElement("option");
-for (b =0; b < lenses.length; b++){
-    creeDivOption.innerHTML += `<option value="${b}">${lenses[b]}</option>`}
-
-
+ const creeInput = document.getElementById("quantite");
 
 //ajouter un bouton - la quantite et le bouton +
-let creeBoutonMoins = document.createElement("button")
-creeBoutonMoins = element.appendChild(loge);
-creeBoutonMoins.textContent ="-"
-creeBoutonMoins.addEventListener("click",function(a){a.stopPropagation();
-    if(inputNombre > 1){
-        creeInput.value = `${--InputNombre}`
+document.getElementById("btMoins").addEventListener("click",function(a){a.stopPropagation();
+    if(document.getElementById("quantite").value > 0){
+      document.getElementById("quantite").value = `${--document.getElementById("quantite").value}`
+    }
+});
+
+document.getElementById("btPlus").addEventListener("click",function(b){b.stopPropagation();
+document.getElementById("quantite").value = `${++document.getElementById("quantite").value}`
+});
+
+
+document.getElementById("quantite").addEventListener("input",function(a){a.stopPropagation();
+if(target.value >=0){
+document.getElementById("quantite") = target.value;
+}
+})
+
+
+//recuper les donnees selectiones
+const optionPris = document.querySelector("#optionSelect");
+const btnPanier = document.querySelector("#valide");
+
+
+btnPanier.addEventListener("click", (event)=>{
+event.preventDefault();
+ 
+//  le choix de l'utlisateur qu'il faut garder dans le add sinon l'option ne sera pas pris en compte
+const choixOption = optionPris.value;
+
+//recuperation des valeurs du produit du const camera = api du produit
+let optionProduit = {
+    id: camera._id,
+    name: camera.name,
+    price: camera.price / 100,
+    optionPris: choixOption,
+    quantite:  document.getElementById("quantite"),
+}
+
+//popup
+const popupConfirmation = () => {
+    if(window.confirm(`${id} option: ${choixOption} a bien éte ajouté au panier 
+    Consultez le panier OK ou revenir à l'accueill ANNULER`)){
+        window.location.href = "panier.html";
+    }
+
+    else{
+        window.location.href = "index.HTML";
+    }    
+}
+
+    //cree la variable enregistreLocal 
+    // fonction pour que les donnees soit en forma json dans le local dans la key produit
+    let enregistreLocal = JSON.parse(localStorage.getItem("produit"));
+
+//envoyer les produit choisi dans le local key produit
+    const ajoutDoneeLocal = () => {
+          enregistreLocal.push(optionProduit);
+        localStorage.setItem("produit", JSON.stringify(enregistreLocal));
+    };
+     
+    //si il n'y a pas de produit dans le local alors il va  en cree (null,false)
+    if(enregistreLocal){
+        //alors elle va ajoute le donnee plus popup va apparetre 
+        ajoutDoneeLocal();
+    popupConfirmation();
+    }
+    //si il y a des produit alors un tableau va ce cree[]
+    else{
+     enregistreLocal = [];
+     ajoutDoneeLocal();
+     popupConfirmation();
     }
 })
-
-let creeInput = document.createElement("input");
-creeInput = element.appendChild(loge);
-let inputNombre = 1;
-creeInput.value =`1`;
-creeInput.addEventListener("input",function(a){a.stopPropagation();
-if(a.target.value >=0){
-inputNombre = atarget.value;
-}
-})
-
-let creeBoutonPlus = document.createElement("button")
-creeBoutonPlus = element.appendChild(loge);
-creeBoutonPlus.textContent ="+"
-creeBoutonPlus.addEventListener("click",function(a){a.stopPropagation();
-        creeInput.value = `${++InputNombre}`
-})
-
-//bouton du panier
-const creeBoutonPanier = document.createElement("button-panier");
-creeBoutonPanier =element.appendChild(loge);
-const boutonPanier = document.querySelector("#button-panier");
-boutonPanier.addEventListener("click",(event)=>{
-    event.preventDefault
-})
-
-//recuper les valeur pour le panier
-let lesArticle = {
-namProduit: idProduitSelectiionner.namProduit,
-id_ProduitSelectionner: idProduitSelectiionner.id_ProduitSelectionner,
-Option: option.DivOption,
-quantite: inputNombre.quantite,
-prix:(idProduitSelectiionner.prix * quantite) /100
-}

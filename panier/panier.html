@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./panier.js" defer></script>
+</head>
+
+<body>
+    <div class="main" id="main">
+        <h2>Les produit selectionees :</h2>
+    </div>
+
+    <div id="formulaire">
+        <h2>Remplissez le formulaire pour valider la commande</h2>
+        <form action="#">
+            <label for="prenom">prenom</label>
+            <input type="text" id="prenom" name="prenom" required>
+
+            <label for="nom">nom :</label>
+            <input type="text" id="prenom" name="nom" required>
+
+            <label for="addresse">adresse :</label>
+            <textarea name="adresse" id="adresse" name="adresse" required></textarea>
+
+            <label for="ville">ville :</label>
+            <input type="text" id="ville" name="ville" required>
+
+            <label for="codePostal">codepostal :</label>
+            <input type="text" id="codePostal" name="codePostal" required>
+
+            <label for="Email">Email :</label>
+            <input type="text" id="Email" name="Email" required>
+
+            <button id="envoyerFormulaire" type="submit" name="envoyerFormulaire">
+                Confirmation de la commande
+            </button>
+    </div>
+
+    </form>
+</body>
+
+</html>
