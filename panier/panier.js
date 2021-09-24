@@ -60,6 +60,7 @@ for (l = 0; l < boutonSuprimer.length; l++) {
 const boutonTousVider = `
 <button class="buttonVider"> Vider le panier </button> `;
 
+//le bouton apres le dernier 
 panier.insertAdjacentElement("beforeend", boutonTousVider);
 
 const buttonTousVider = document.querySelector("buttonVider");
@@ -79,15 +80,16 @@ let prixTotalCalculer = [];
 for (let t = 0; t < enregistreLocal.length; t++) {
     let prixProduit = enregistreLocal[t].price;
 
-    prixTotal.push(prixProduit);
+    // mettre le total des valeurs dans le tableau "prixTotalCalculer"
+    prixTotalCalculer.push(prixProduit);
 }
 
 //additionner le total
-const reducer = (accumulator, currentValeur) => acuumulator + currentValeur
+const reducer = (accumulator, currentValeur) => acuumulator + currentValeur;
 const prixTotal = prixTotalCalculer.reduce(reducer, 0);
 
 const affichagePrix = `
-<div class="affichage-prix>Le prix total est de :${prixTotal}€ </div>`
+<div class="affichage-prix>Le prix total est de: ${prixTotal}€ </div>`
 
 panier.insertAdjacentHTML("beforeend", affichagePrix);
 
@@ -152,6 +154,41 @@ boutonFormulaire.addEventListener("click", (e) => {
     //appel de la class
     const formulaireValue = new Formulaire();
 
+    // validation du formulaire
+    function prenomControle() {
+
+        const lePrenom = formulaireValue.prenom;
+        if (/^[A-Za-z]{3,20}$/.test(lePrenom)) {
+            return true;
+        } else {
+            alert(`chiffre et symbole ne sont pas autorisé`);
+            return false;
+        };
+    }
+
+    function nomControle() {
+
+        const leNom = formulaireValue.nom;
+        if (/^[A-Za-z]{3,20}$/.test(leNom)) {
+            return true;
+        } else {
+            alert(`chiffre et symbole ne sont pas autorisé`);
+            return false;
+        };
+    }
+
+    function villeControle() {
+
+        const leVille = formulaireValue.ville;
+        if (/^[A-Za-z]{3,20}$/.test(leVille)) {
+            return true;
+        } else {
+            alert(`chiffre et symbole ne sont pas autorisé`);
+            return false;
+        };
+    }
+
+
 
     // const formulaireValue = {
     //     prenom : document.querySelector("#prenom").value,
@@ -162,8 +199,13 @@ boutonFormulaire.addEventListener("click", (e) => {
     //     email : document.querySelector("#Email").value,
     // }
 
-// mettre l'objet "formulaireValue" dans le local storage 
-    localStorage.setItem("formulaireValue", JSON.stringify(formulaireValue));
+    if (prenomControle() && villeControle() ) {
+        // mettre l'objet "formulaireValue" dans le local storage 
+        localStorage.setItem("formulaireValue", JSON.stringify(formulaireValue));
+    } else {
+        alert("veulliez bien remplir le formulaire");
+    }
+
 
     //je met le formulaire et les produit selectionnes dans un objet a envoyer au serveur
     const aEnvoyer = {
@@ -182,7 +224,7 @@ const dataLocalStorge = JSON.parse(dataLocalStorge);
 
 
 //fonction qui va sauvegarder les data du client
-function remplireChampLocal(input){
+function remplireChampLocal(input) {
     document.querySelector(`#${input}`).value = dataLocalStorge[input];
 };
 remplireChampLocal("prenom");

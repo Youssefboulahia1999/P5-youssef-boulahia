@@ -34,19 +34,16 @@ function creeDiv(data) {
    `<div class="tete">
     <img src="${data.imageUrl}">
     <h2>${data.name}<h2>
-    <p>${data.price /100}€<p>
+    <p>Prix: ${data.price /100}€<p>
     <select class="rtp" name="optionSelect" id="optionSelect"></select>
     </div>
+    <div class="choix">
     <button id="btMoins" type="button">-</button>
     <input type="text" id="quantite" value="1">
     <button id="btPlus" type="button">+</button>
-    <button id="valide" type"submit">Ajouter au panier</buttun>
+    </div>
+    <button class="valide" id="valide" type"submit">Ajouter au panier</buttun>
     </div>`
-    function creePlusOption(camera){
-        for (let z = 0; z < optionCamera.length; z++){
-        document.getElementById("optionSelect").innerHTML +=`
-        <option value="${z}">${optionCamera[z]}</option>
-        `;}}
     ;
 }
 

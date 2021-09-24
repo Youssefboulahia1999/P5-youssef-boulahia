@@ -28,25 +28,3 @@ margin-right:5%;
     margin-right:5%;
     font-size:30px;
 }
-
-.main{
-    justify-content: center;
-    width:100%;
-    display:grid;
-    grid-template-columns: 45% 45%;
-}
-.tete{
-    text-align: center;
-    padding:2%;
-}
-.click{
-    color:black;
-    background-color: burlywood;
-    text-decoration: none;
-}
-img{
-    width:100%;
-}
-.text{
-    background-color: burlywood;
-}

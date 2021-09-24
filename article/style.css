@@ -1,1 +1,51 @@
-.ppss{ width: 100px;}
+.rtp{ width: 200px;}
+body{
+    width:100%;
+    margin:0px;
+}
+h2{
+    margin:0px;
+}
+article{
+    width:100px;
+    height:100px;
+    border: solid 4px black;
+}
+.top-page{
+    background-color:rgb(135, 135, 184);
+    padding-top:5%;
+    padding-bottom:5%;
+    text-align: center;
+}
+.accueil{
+    color:black;
+    text-decoration: none;
+font-size:30px;
+margin-right:5%;
+}
+.panier{
+    color:black;
+    text-decoration: none;
+    margin-right:5%;
+    font-size:30px;
+}
+main{
+    background-color: burlywood;
+    width:100%;
+    justify-content: center;
+}
+img{
+    width:100%;
+}
+.tete{
+    align-items: center;
+    text-align: center;
+    padding:2%;
+}
+.choix{
+    margin:auto;
+    text-align: center;
+}
+.valide{
+
+}

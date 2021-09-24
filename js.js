@@ -29,7 +29,7 @@ function creeDiv(data) {
     document.getElementById("main").innerHTML +=
     `
     <div class="tete">
-    <a class="clik" href = "article/article.html?id=${data._id}" >
+    <a class="click" href = "article/article.html?id=${data._id}" >
     <img src="${data.imageUrl}">
     <div class="text">
     <h2>${data.name}<h2>
