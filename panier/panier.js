@@ -151,43 +151,29 @@ boutonFormulaire.addEventListener("click", (e) => {
             this.email = document.querySelector("#Email").value;
         }
     }
-    //appel de la class
-    const formulaireValue = new Formulaire();
 
-    // validation du formulaire
-    function prenomControle() {
+    let regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let regexCodePostal = /[0-9]/;
+    let regexAddress = /\d([ ])(\w+[ ]?)+/;
 
-        const lePrenom = formulaireValue.prenom;
-        if (/^[A-Za-z]{3,20}$/.test(lePrenom)) {
-            return true;
-        } else {
-            alert(`chiffre et symbole ne sont pas autorisé`);
-            return false;
-        };
+    if  (!firstName.value ||
+        !lastName.value ||
+        !regexAddress.test(address.value) ||
+        !city.value ||
+        !regexCodePostal.test(codePostal.value) ||
+        !regexEmail.test(email.value)){
+        console.log("Il manque des valeurs à renseigner");
+        let selectH2Formulaire = document.querySelector("h2.h2Formulaire");
+        selectH2Formulaire.innerHTML = "Veuillez renseigner vos données correctement";
+        selectH2Formulaire.style.color = "red";
     }
 
-    function nomControle() {
-
-        const leNom = formulaireValue.nom;
-        if (/^[A-Za-z]{3,20}$/.test(leNom)) {
-            return true;
-        } else {
-            alert(`chiffre et symbole ne sont pas autorisé`);
-            return false;
+    else{
+        const options = {
+            method: "POST",
+            body: JSON.stringify(command),
+            headers: { "Content-Type": "application/json" },
         };
-    }
-
-    function villeControle() {
-
-        const leVille = formulaireValue.ville;
-        if (/^[A-Za-z]{3,20}$/.test(leVille)) {
-            return true;
-        } else {
-            alert(`chiffre et symbole ne sont pas autorisé`);
-            return false;
-        };
-    }
-
 
 
     // const formulaireValue = {
