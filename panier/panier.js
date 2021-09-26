@@ -106,22 +106,22 @@ const afficherFormulaire = () => {
     <h2>Remplissez le formulaire pour valider la commande</h2>
     <form action="#">
         <label for="prenom">prenom</label>
-        <input type="text" id="prenom" name="prenom" required>
+        <input type="text" id="prenom" name="prenom" placeholder="prenom" required>
         
 <label for="nom">nom :</label>
-<input type="text" id="prenom" name="nom" required>
+<input type="text" id="prenom" name="nom" placeholder="nom" required>
 
 <label for="adresse">adresse :</label>
-<textarea name="adresse" id="adresse" name="adresse" required></textarea>
+<textarea name="adresse" id="adresse" name="adresse" placeholder="adresse" required></textarea>
 
 <label for="ville">ville :</label>
-<input type="text" id="ville" name="ville" required>
+<input type="text" id="ville" name="ville" placeholder="ville" required>
 
 <label for="codePostal">codepostal :</label>
-<input type="text" id="codePostal" name="codePostal" required>
+<input type="text" id="codePostal" name="codePostal" placeholder="codePostal" required>
 
 <label for="Email">Email :</label>
-<input type="text" id="Email" name="Email" required>
+<input type="email" id="Email" name="Email" placeholder="Email" required>
 
 <button id="envoyerFormulaire" type="submit" name="envoyerFormulaire">
 Confirmation de la commande 
@@ -151,54 +151,53 @@ boutonFormulaire.addEventListener("click", (e) => {
             this.email = document.querySelector("#Email").value;
         }
     }
+    const formulaireValues = new Formulaire();
+
+
+    //gestion de validation du formulaire 
 
     let regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let regexCodePostal = /[0-9]/;
-    let regexAddress = /\d([ ])(\w+[ ]?)+/;
+    let regexAdresse = /\d([ ])(\w+[ ]?)+/;
 
-    if  (!firstName.value ||
-        !lastName.value ||
-        !regexAddress.test(address.value) ||
-        !city.value ||
+    //si pas bon alors manque des valeurs a renseigner.
+    if (!prenom.value ||
+        !nom.value ||
+        !regexAdresse.test(addresse.value) ||
+        !ville.value ||
         !regexCodePostal.test(codePostal.value) ||
-        !regexEmail.test(email.value)){
+        !regexEmail.test(email.value)) {
         console.log("Il manque des valeurs à renseigner");
         let selectH2Formulaire = document.querySelector("h2.h2Formulaire");
         selectH2Formulaire.innerHTML = "Veuillez renseigner vos données correctement";
         selectH2Formulaire.style.color = "red";
     }
 
-    else{
-        const options = {
-            method: "POST",
-            body: JSON.stringify(command),
-            headers: { "Content-Type": "application/json" },
+    else {
+        //je met le formulaire et les produit selectionnes dans un objet a envoyer au serveur
+        const aEnvoyer = {
+            enregistreLocal,
+            formulaireValue
         };
 
+        // envoyer les objet vers le serveur
 
-    // const formulaireValue = {
-    //     prenom : document.querySelector("#prenom").value,
-    //     nom : document.querySelector("#nom").value,
-    //     adresse :  document.querySelector("#addresse").value,
-    //     ville : document.querySelector("#ville").value,
-    //     codePostal : document.querySelector("#codePostal").value,
-    //     email : document.querySelector("#Email").value,
-    // }
+        const promese = {
+            method: "POST",
+            body: JSON.stringify(aEnvoyer),
+            headers: { "Content-Type": "application/json", },
+        };
+        // VOIR LE RESULTA DU SERVEUR
+        promese.then(async (response) => {
+            try {
+                const contenu = await response.json();
+            } catch (e) {
 
-    if (prenomControle() && villeControle() ) {
-        // mettre l'objet "formulaireValue" dans le local storage 
-        localStorage.setItem("formulaireValue", JSON.stringify(formulaireValue));
-    } else {
-        alert("veulliez bien remplir le formulaire");
+            }
+        })
+
     }
-
-
-    //je met le formulaire et les produit selectionnes dans un objet a envoyer au serveur
-    const aEnvoyer = {
-        enregistreLocal,
-        formulaireValue
-    }
-})
+});
 
 // sauvegarder le info dans le formulaire 
 
@@ -206,7 +205,7 @@ boutonFormulaire.addEventListener("click", (e) => {
 const dataLocalStorge = localStorage.getItem("formulaireValue");
 
 //convertir la chaine de caractere en objet javascript
-const dataLocalStorge = JSON.parse(dataLocalStorge);
+//const dataLocalStorge = JSON.parse(dataLocalStorge);
 
 
 //fonction qui va sauvegarder les data du client
@@ -220,10 +219,3 @@ remplireChampLocal("ville");
 remplireChampLocal("codePostal");
 remplireChampLocal("Email");
 
-//mettre les value du local dans les champs du formulaire
-// document.querySelector("#prenom").value = dataLocalStorge.prenom;
-// document.querySelector("#nom").value = dataLocalStorge.nom;
-// document.querySelector("#adresse").value = dataLocalStorge.adresse;
-// document.querySelector("#ville").value = dataLocalStorge.ville;
-// document.querySelector("#codePostal").value = dataLocalStorge.codePostal;
-// document.querySelector("#Email").value = dataLocalStorge.Email;

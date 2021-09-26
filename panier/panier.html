@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="./panier.js" defer></script>
 </head>
 
 <body>
@@ -24,30 +23,28 @@
     <div id="formulaire">
         <h2>Remplissez le formulaire pour valider la commande</h2>
         <form action="#">
-            <label for="prenom">prenom</label>
-            <input type="text" id="prenom" name="prenom" required>
+            <label for="prenom">prenom</label> <input type="text" id="prenom" name="prenom" placeholder="prenom">
 
-            <label for="nom">nom :</label>
-            <input type="text" id="prenom" name="nom" required>
+            <label for="nom">nom :</label><input type="text" id="prenom" name="nom" placeholder="nom">
 
-            <label for="addresse">adresse :</label>
-            <textarea name="adresse" id="adresse" name="adresse" required></textarea>
+            <label for="adresse">adresse :</label><textarea name="adresse" id="adresse" name="adresse"
+                placeholder="name"></textarea>
 
-            <label for="ville">ville :</label>
-            <input type="text" id="ville" name="ville" required>
+            <label for="ville">ville :</label><input type="text" id="ville" name="ville" placeholder="ville">
 
-            <label for="codePostal">codepostal :</label>
-            <input type="text" id="codePostal" name="codePostal" required>
+            <label for="codePostal">codepostal :</label><input type="text" id="codePostal" name="codePostal"
+                placeholder="codePostal">
 
-            <label for="Email">Email :</label>
-            <input type="text" id="Email" name="Email" required>
-
-            <button id="envoyerFormulaire" type="submit" name="envoyerFormulaire">
-                Confirmation de la commande
-            </button>
+            <label for="Email">Email :</label><input type="email" id="Email" name="Email" placeholder="Email">
+        </form>
     </div>
 
-    </form>
+
+    <div class="divBoutonValider">
+        <button id="submit">valider</button>
+    </div>
+
+    <script src="./panier.js"></script>
 </body>
 
 </html>
