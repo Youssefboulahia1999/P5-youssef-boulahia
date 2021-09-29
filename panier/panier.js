@@ -1,6 +1,6 @@
 //local
 let enregistreLocal = JSON.parse(localStorage.getItem("produit"));
-
+console.log(enregistreLocal);
 const panier = document.querySelector("main");
 
 //si le panier est vide 
@@ -19,7 +19,7 @@ if (enregistreLocal === null || enregistreLocal == 0) {
         lesProduit = enregistreLocal + `
     <div class="objet">
     <div class="quantite">quantite :${enregistreLocal[p].name} Options :${enregistreLocal[p].lenses}</div>
-        <div class="supprime">${enregistreLocal[p].price}€ <button class="boutonSuprimer">suprimer</button></div>
+        <div id="boutonSupprimer" class="supprime">${enregistreLocal[p].price}€ <button class="boutonSuprimer">suprimer</button></div>
     </div>
         `;
     }
@@ -29,36 +29,37 @@ if (enregistreLocal === null || enregistreLocal == 0) {
 
 }
 
-//buttom supprime 
-let boutonSuprimer = document.querySelectorAll(",boutonSupprimer");
+
+function supprime() {
+    //buttom supprime 
+    let boutonSuprimer = document.getElementById("boutonSupprimer");
+
+    for (l = 0; l < boutonSuprimer.length; l++) {
+        boutonSuprimer[l].addEventListener("click", (event) => {
+            event.preventDefault();
+
+            //selection de id qui va etre supprimer
+            let idSupprimer = enregistreLocal[l].id;
+
+            //supprimer l'element selectionner avec l'invertion 
+            enregistreLocal = enregistreLocal.filter(
+                (el) => el.idSupprimer !== idSupprimer
+            );
 
 
-for (l = 0; l < boutonSuprimer.length; l++) {
-    boutonSuprimer[l].addEventListener("click", (event) => {
-        event.preventDefault();
+            //puis tu envoie le tout dans le local
+            localStorage.setItem("produit", JSON.stringify(enregistreLocal));
 
-        //selection de id qui va etre supprimer
-        let idSupprimer = enregistreLocal[l].id;
-
-        //supprimer l'element selectionner avec l'invertion 
-        enregistreLocal = enregistreLocal.filter(
-            (el) => el.idSupprimer !== idSupprimer
-        );
-
-
-        //puis tu envoie le tout dans le local
-        localStorage.setItem("produit", JSON.stringify(enregistreLocal));
-
-        //recharge la page 
-        alert("produit supprimmer");
-        window.location.href = "./panier.html";
-    });
+            //recharge la page 
+            alert("produit supprimmer");
+            window.location.href = "./panier.html";
+        });
+    }
 }
 
 
 //vide le panier 
-const boutonTousVider = `
-<button class="buttonVider"> Vider le panier </button> `;
+const boutonTousVider = `<button class="buttonVider"> Vider le panier </button> `;
 
 //le bouton apres le dernier 
 panier.insertAdjacentElement("beforeend", boutonTousVider);

@@ -20,8 +20,7 @@ dataApi
         creePlusOption(camera);
         boutonMoins();
         boutonPlus();
-        quantite();
-        click ();
+        click (camera);
         //apresClick();
 
         try {
@@ -48,7 +47,9 @@ function creeDiv(data) {
     <input type="text" id="quantite" value="1">
     <button id="btPlus" type="button">+</button>
     </div>
-    <button class="valide" id="valide" type"submit">Ajouter au panier</buttun>
+    <div class= "ajoute">
+    <button class="valide" id="valide" type"submit">Ajouter au panier</buttun> 
+    </div>
     </div>`
         ;
 }
@@ -87,47 +88,40 @@ function boutonPlus (){
     });
 }
 
-function quantite(){
-    document.getElementById("quantite").addEventListener("input", function (a) {
-        a.stopPropagation();
-        if (quantiteChoisie >= 0) {
-            document.getElementById("quantite").value = quantiteChoisie;
-        }
-    })
-}
 
 //-----------------------------------------------fin bouton + - = -----------------------------------------
 
 //-----------------------------------------donnees----------------------------------------------------
   //recuper les donnees selectiones
   
-  function click (){
-    const btnPanier = document.querySelector("valide");
-    const optionPris = document.querySelector("optionSelect");
+  function click (cam){
+    const btnPanier = document.getElementById("valide");
 
 btnPanier.addEventListener("click", (event) => {
       event.preventDefault();
       //  le choix de l'utlisateur qu'il faut garder dans le add sinon l'option ne sera pas pris en compte
-      const choixOption = optionPris.value;
-      
+      let quantiteChoisie = document.getElementById("quantite").value;
+       let optionPris = document.getElementById("optionSelect");
+    
       //recuperation des valeurs du produit du const camera = api du produit
       let optionProduit = {
-          id: camera._id,
-      name: camera.name,
-      price: camera.price / 100,
-      optionPris: choixOption,
+          id: cam._id,
+      name: cam.name,
+      price: cam.price / 100,
+      optionPris: optionPris.value,
       quantite: quantiteChoisie,
   }
+  console.log(optionProduit);
   
   //popup
   const popupConfirmation = () => {
-      if (window.confirm(`${id} option: ${choixOption} a bien éte ajouté au panier 
+      if (window.confirm(`${id} option: ${optionPris.value} a bien éte ajouté au panier 
   Consultez le panier OK ou revenir à l'accueill ANNULER`)) {
-      window.location.href = "panier.html";
+      window.location.href = "../panier/panier.html";
       }
 
       else {
-          window.location.href = "index.HTML";
+          window.location.href = "../index.HTML";
       }
   }
   
@@ -155,4 +149,3 @@ btnPanier.addEventListener("click", (event) => {
   }
 })
 }
-

@@ -33,6 +33,7 @@ main{
     background-color: burlywood;
     width:100%;
     justify-content: center;
+    padding-bottom:2%;
 }
 img{
     width:100%;
@@ -46,6 +47,7 @@ img{
     margin:auto;
     text-align: center;
 }
-.valide{
-
+.ajoute{
+    margin-top: 2%;
+    text-align: center;
 }
