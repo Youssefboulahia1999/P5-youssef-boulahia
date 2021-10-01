@@ -1,79 +1,86 @@
 //local
 let enregistreLocal = JSON.parse(localStorage.getItem("produit"));
-console.log(enregistreLocal);
-const panier = document.querySelector("main");
+const panier = document.getElementById("main");
 
 //si le panier est vide 
-if (enregistreLocal === null || enregistreLocal == 0) {
-    const panierVide = `
+const liste = () => {
+
+    // let enregistreLocal = JSON.parse(localStorage.getItem("produit"));
+    // const panier = document.getElementById("main");
+
+    if (enregistreLocal === null || enregistreLocal == 0) {
+        panier.innerHTML += `
      <div class="paniervide>
      <h2>le panier est vide </h2>
      </div>
      `;
-    panier.innerHTML = panierVide;
 
-} else {
-    let lesProduit = [];
+    } else {
 
-    for (p = 0; p < enregistreLocal.length; p++) {
-        lesProduit = enregistreLocal + `
+        for (p = 0; p < enregistreLocal.length; p++) {
+            panier.innerHTML += `
     <div class="objet">
-    <div class="quantite">quantite :${enregistreLocal[p].name} Options :${enregistreLocal[p].lenses}</div>
-        <div id="boutonSupprimer" class="supprime">${enregistreLocal[p].price}€ <button class="boutonSuprimer">suprimer</button></div>
+    <div class="quantite">quantite :${enregistreLocal[p].name} Options :${enregistreLocal[p].optionPris}</div>
+        <div class="supprime">${enregistreLocal[p].price}€ <button id="boutonSupprimer" class="boutonSuprimer">suprimer</button></div>
     </div>
         `;
-    }
-    if (p == enregistreLocal) {
-        panier.innerHTML = enregistreLocal
-    }
-
-}
-
-
-function supprime() {
-    //buttom supprime 
-    let boutonSuprimer = document.getElementById("boutonSupprimer");
-
-    for (l = 0; l < boutonSuprimer.length; l++) {
-        boutonSuprimer[l].addEventListener("click", (event) => {
-            event.preventDefault();
-
-            //selection de id qui va etre supprimer
-            let idSupprimer = enregistreLocal[l].id;
-
-            //supprimer l'element selectionner avec l'invertion 
-            enregistreLocal = enregistreLocal.filter(
-                (el) => el.idSupprimer !== idSupprimer
-            );
-
-
-            //puis tu envoie le tout dans le local
-            localStorage.setItem("produit", JSON.stringify(enregistreLocal));
-
-            //recharge la page 
-            alert("produit supprimmer");
-            window.location.href = "./panier.html";
-        });
+        }
+        // if (p == enregistreLocal) {
+        //     panier.innerHTML = enregistreLocal
+        // }
+        console.log(enregistreLocal);
     }
 }
+liste();
 
 
+// function supprime () {
+//     //buttom supprime 
+//     let boutonSuprimer = document.getElementById("boutonSupprimer");
+
+//     for (l = 0; l < boutonSuprimer.length; l++) {
+//         boutonSuprimer[l].addEventListener("click", (event) => {
+//             event.preventDefault();
+
+//             console.log(boutonSuprimer);
+//             //selection de id qui va etre supprimer
+//             let idSupprimer = enregistreLocal[l];
+//             //supprimer l'element selectionner avec l'invertion 
+//             enregistreLocal = enregistreLocal.filter(
+//                 (el) => el.idSupprimer !== idSupprimer
+//                 );
+
+
+//                 //puis tu envoie le tout dans le local
+//             localStorage.setItem("produit", JSON.stringify(enregistreLocal));
+
+//             //recharge la page 
+//             alert("produit supprimmer");
+//             window.location.href = "./panier.html";
+//         });
+//     }
+// }
+// supprime();
+// console.log(idSupprimer);
 //vide le panier 
-const boutonTousVider = `<button class="buttonVider"> Vider le panier </button> `;
 
-//le bouton apres le dernier 
-panier.insertAdjacentElement("beforeend", boutonTousVider);
+const tousSUprimer = () => {
 
-const buttonTousVider = document.querySelector("buttonVider");
-//suppression de la key produit
-buttonTousVider.addEventListener("click", (e) => {
-    e.preventDefault();
-    localStorage.removeItem("produit");
+    panier.innerHTML = `<button id ="buttonVider"> Vider le panier </button> `;
 
-    alert("le panier a été vidé")
-    window, location.href = "./panier.html"
-});
+    //le bouton apres le dernier 
 
+    const buttonTousVider = document.getElementById("buttonVider");
+    //suppression de la key produit
+    buttonTousVider.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("produit");
+
+        alert("le panier a été vidé")
+        window, location.href = "./panier.html"
+    });
+}
+tousSUprimer();
 
 //total du panier
 let prixTotalCalculer = [];
