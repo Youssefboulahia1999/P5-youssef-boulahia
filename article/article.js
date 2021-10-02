@@ -28,6 +28,7 @@ dataApi
             console.log(optionCamera);
         } catch (err) {
             console.log(err);
+            //afficher une erreur
         }
 
     });
@@ -88,6 +89,7 @@ function boutonPlus (){
     });
 }
 
+//champ pas de lettres
 
 //-----------------------------------------------fin bouton + - = -----------------------------------------
 

@@ -105,13 +105,13 @@ for (let t = 0; t < enregistreLocal.length; t++) {
 }
 
 //additionner le total
-const reducer = (accumulator, currentValeur) => acuumulator + currentValeur;
+const reducer = (acumulator, currentValeur) => acumulator + currentValeur;
 const prixTotal = prixTotalCalculer.reduce(reducer, 0);
 
 const affichagePrix = `
 <div class="affichage-prix>Le prix total est de: ${prixTotal}€ </div>`
 
-panier.insertAdjacentHTML("beforeend", affichagePrix);
+deuxieme.insertAdjacentHTML;
 
 
 
@@ -188,11 +188,31 @@ boutonFormulaire.addEventListener("click", (e) => {
         !regexCodePostal.test(codePostal.value) ||
         !regexEmail.test(email.value)) {
         console.log("Il manque des valeurs à renseigner");
-        let selectH2Formulaire = document.querySelector("h2.h2Formulaire");
+        let selectH2Formulaire = document.getElementById("h2");
         selectH2Formulaire.innerHTML = "Veuillez renseigner vos données correctement";
         selectH2Formulaire.style.color = "red";
+        console.log(selectH2Formulaire);
+        // sauvegarder le info dans le formulaire 
+        
+        //prendre la key du local et la mettre dans une variable
+        const dataLocalStorge = localStorage.getItem("formulaireValue");
+        
+        //convertir la chaine de caractere en objet javascript
+        //const dataLocalStorge = JSON.parse(dataLocalStorge);
+        
+        
+        //fonction qui va sauvegarder les data du client
+        function remplireChampLocal(input) {
+            document.querySelector(`#${input}`).value = dataLocalStorge[input];
+        };
+        remplireChampLocal("prenom");
+        remplireChampLocal("nom");
+        remplireChampLocal("adresse");
+        remplireChampLocal("ville");
+        remplireChampLocal("codePostal");
+        remplireChampLocal("Email");
     }
-
+    
     else {
         //je met le formulaire et les produit selectionnes dans un objet a envoyer au serveur
         const aEnvoyer = {
@@ -219,23 +239,4 @@ boutonFormulaire.addEventListener("click", (e) => {
     }
 });
 
-// sauvegarder le info dans le formulaire 
-
-//prendre la key du local et la mettre dans une variable
-const dataLocalStorge = localStorage.getItem("formulaireValue");
-
-//convertir la chaine de caractere en objet javascript
-//const dataLocalStorge = JSON.parse(dataLocalStorge);
-
-
-//fonction qui va sauvegarder les data du client
-function remplireChampLocal(input) {
-    document.querySelector(`#${input}`).value = dataLocalStorge[input];
-};
-remplireChampLocal("prenom");
-remplireChampLocal("nom");
-remplireChampLocal("adresse");
-remplireChampLocal("ville");
-remplireChampLocal("codePostal");
-remplireChampLocal("Email");
 

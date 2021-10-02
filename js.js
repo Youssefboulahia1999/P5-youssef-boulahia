@@ -16,6 +16,7 @@
 
         } catch (err) {
             console.log(err);
+            //afficher une erreur
         }
 
     });
