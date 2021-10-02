@@ -2,14 +2,25 @@
 let enregistreLocal = JSON.parse(localStorage.getItem("produit"));
 const panier = document.getElementById("main");
 
+function div () {
+const panier = document.getElementById("main");
+panier.innerHTML = 
+`
+<div class="premier" id="premier"></div>
+<div class="deuxieme" id="deuxieme"></div>
+`
+}
+div();
+
 //si le panier est vide 
 const liste = () => {
-
-    // let enregistreLocal = JSON.parse(localStorage.getItem("produit"));
+const premier = document.getElementById("premier")
+    
     // const panier = document.getElementById("main");
 
     if (enregistreLocal === null || enregistreLocal == 0) {
-        panier.innerHTML += `
+       premier.innerHTML += 
+     `
      <div class="paniervide>
      <h2>le panier est vide </h2>
      </div>
@@ -18,10 +29,10 @@ const liste = () => {
     } else {
 
         for (p = 0; p < enregistreLocal.length; p++) {
-            panier.innerHTML += `
+           premier.innerHTML += `
     <div class="objet">
     <div class="quantite">quantite :${enregistreLocal[p].name} Options :${enregistreLocal[p].optionPris}</div>
-        <div class="supprime">${enregistreLocal[p].price}€ <button id="boutonSupprimer" class="boutonSuprimer">suprimer</button></div>
+        <div class="supprime">${enregistreLocal[p].price}€ <div class="quantite"id="quantite">quantite: ${enregistreLocal[p].quantite}</div><button id="boutonSupprimer" class="boutonSuprimer">suprimer</button></div>
     </div>
         `;
         }
@@ -33,6 +44,7 @@ const liste = () => {
 }
 liste();
 
+console.log(liste);
 
 // function supprime () {
 //     //buttom supprime 
@@ -64,23 +76,23 @@ liste();
 // console.log(idSupprimer);
 //vide le panier 
 
-const tousSUprimer = () => {
+// const tousSUprimer = () => {
 
-    panier.innerHTML = `<button id ="buttonVider"> Vider le panier </button> `;
+//     panier.innerHTML = `<button id ="buttonVider"> Vider le panier </button> `;
 
-    //le bouton apres le dernier 
+//     //le bouton apres le dernier 
 
-    const buttonTousVider = document.getElementById("buttonVider");
-    //suppression de la key produit
-    buttonTousVider.addEventListener("click", (e) => {
-        e.preventDefault();
-        localStorage.removeItem("produit");
+//     const buttonTousVider = document.getElementById("buttonVider");
+//     //suppression de la key produit
+//     buttonTousVider.addEventListener("click", (e) => {
+//         e.preventDefault();
+//         localStorage.removeItem("produit");
 
-        alert("le panier a été vidé")
-        window, location.href = "./panier.html"
-    });
-}
-tousSUprimer();
+//         alert("le panier a été vidé")
+//         window, location.href = "./panier.html"
+//     });
+// }
+// tousSUprimer();
 
 //total du panier
 let prixTotalCalculer = [];
