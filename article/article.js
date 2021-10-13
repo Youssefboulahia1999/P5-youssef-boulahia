@@ -10,12 +10,14 @@ let dataApi = fetch("http://localhost:3000/api/cameras/" + id);
 
 dataApi
     .then(async (responseData) => {
-        console.table(responseData);
+        if(responseData.ok){
 
-        camera = await responseData.json();
-        console.table(camera);
-        // document.getElementById("main").innerHTML = "ok" 
-        // creeDiv(response[0])
+            console.table(responseData);
+            
+            camera = await responseData.json();
+            console.table(camera);
+            // document.getElementById("main").innerHTML = "ok" 
+            // creeDiv(response[0])
         creeDiv(camera);
         creePlusOption(camera);
         boutonMoins();
@@ -30,7 +32,12 @@ dataApi
             console.log(err);
             //afficher une erreur
         }
-
+    }else {
+        document.getElementById("error").innerHTML += `
+<h1 class = "error"> desole, mais le site est en reparation, revenez plus tard. <h2>
+`
+    }
+        
     });
 
 
@@ -45,7 +52,7 @@ function creeDiv(data) {
     </div>
     <div class="choix">
     <button id="btMoins" type="button">-</button>
-    <input type="text" id="quantite" value="1">
+    <input type="number" disabled="disabled" id="quantite" min="1" max="30" value="1">
     <button id="btPlus" type="button">+</button>
     </div>
     <div class= "ajoute">
@@ -63,6 +70,7 @@ function creePlusOption(camera) {
         <option value="${optionCamera[z]}">${optionCamera[z]}</option>
         `}
     };
+    
 
 //------------------------------------------------fin option-----------------------------------------------------
 
@@ -83,7 +91,7 @@ function boutonMoins (){
 function boutonPlus (){
     document.getElementById("btPlus").addEventListener("click", function (a) {
         a.stopPropagation();
-        if (document.getElementById("quantite").value > 0) {
+        if (document.getElementById("quantite").value < 30) {
             document.getElementById("quantite").value = `${++document.getElementById("quantite").value}`
         }
     });
@@ -107,6 +115,7 @@ btnPanier.addEventListener("click", (event) => {
     
       //recuperation des valeurs du produit du const camera = api du produit
       let optionProduit = {
+          img: cam.imageUrl,
           id: cam._id,
       name: cam.name,
       price: cam.price / 100,
@@ -117,7 +126,7 @@ btnPanier.addEventListener("click", (event) => {
   
   //popup
   const popupConfirmation = () => {
-      if (window.confirm(`${id} option: ${optionPris.value} a bien éte ajouté au panier 
+      if (window.confirm(`${cam.name} option: ${optionPris.value} a bien éte ajouté au panier 
   Consultez le panier OK ou revenir à l'accueill ANNULER`)) {
       window.location.href = "../panier/panier.html";
       }
