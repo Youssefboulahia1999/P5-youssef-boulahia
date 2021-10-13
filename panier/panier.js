@@ -189,18 +189,18 @@ afficherFormulaire();
 const boutonFormulaire = document.getElementById("envoyerFormulaire");
 boutonFormulaire.addEventListener("click", (e) => {
     e.preventDefault();
-    
-    const info = {
-        contact: {
-            prenom: prenom.value,
-            nom: nom.value,
-            adresse: adresse.value,
-            ville: ville.value,
-            codePostal: codePostal.value,
-            email: email.value,
+     
+        const info = {
+            contact: {
+                prenom: prenom.value,
+                nom: nom.value,
+                adresse: adresse.value,
+                ville: ville.value,
+                codePostal: codePostal.value,
+                email: email.value,
+            }
         }
-    }
-    console.log(info);
+        console.log(info);
     // // class dans la quelle on aura les objet dans la quelle iront les values du formulaire
     // class Formulaire {
         //     constructor() {
@@ -214,22 +214,25 @@ boutonFormulaire.addEventListener("click", (e) => {
     // }
     // // const formulaireValues = new Formulaire();
     
-    
-    // //gestion de validation du formulaire 
-    let regexNom = /[A-Za-z éèçàêëñöùä\-]/;
-    let regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let regexCodePostal = /[0-9]/;
-    let regexAdresse = /\d([ ])(\w+[ ]?)+/;
-    
-    //si pas bon alors manque des valeurs a renseigner. different et 
-    if (!regexNom.test(prenom.value) ||
-        !nom.value ||
-        !regexAdresse.test(adresse.value) ||
-        !ville.value ||
-        !regexCodePostal.test(codePostal.value) ||
-        !regexEmail.test(email.value)) {
+        // //gestion de validation du formulaire 
+        let regexNom = /[A-Za-z éèçàêëñöùä\-]/;
+        let regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let regexCodePostal = /[0-9]{5}/;
+        let regexAddress = /\d([ ])(\w+[ ]?)+/;
+       
+       
+        // Vérification du formulaire pour savoir si on envoie ou non la commande dans le local storage
+        
+        if  (!regexNom.test(prenom.value) ||
+            !regexNom.test(nom.value) ||
+            !regexAddress.test(adresse.value) ||
+            !regexNom.test(ville.value) ||
+            !regexCodePostal.test(codePostal.value) ||
+            !regexEmail.test(email.value)) {
             
             console.log("Il manque des valeurs à renseigner");
+            const probleme = document.getElementById("error");
+            console.log(probleme);
             document.getElementById("error").innerHTML += `<div>Veuillez renseigner vos données correctement<div>`;
             console.log(error);
     }
@@ -238,28 +241,36 @@ boutonFormulaire.addEventListener("click", (e) => {
         //metre les infos du formulaire dans le localstorage
         const formulaireValue = localStorage.setItem("info",JSON.stringify(info));
 
+        console.log(formulaireValue);
         //je met le formulaire et les produit selectionnes dans un objet a envoyer au serveur
         const aEnvoyer = {
             enregistreLocal,
             formulaireValue
         };
-        // envoyer les objet vers le serveur
-        const promese = {
+        //envoyer
+        const promise = fetch("http://localhost:3000/api/cameras/order", {
             method: "POST",
             body: JSON.stringify(aEnvoyer),
             headers: { "Content-Type": "application/json", },
-        };
+        });
+        // envoyer les objet vers le serveur
+        // const promese = {
+        //     method: "POST",
+        //     body: JSON.stringify(aEnvoyer),
+        //     headers: { "Content-Type": "application/json", },
+        // };
         // VOIR LE RESULTA DU SERVEUR
-        promese.then(async (response) => {
+        promise.then(async (response) => {
             try {
                 const contenu = await response.json();
+                console.log(contenu);
             } catch (e) {
+                console.log("erreur du catch")
                 
             }
         })
-        
-        
     }
+    
 });
 }
 }
