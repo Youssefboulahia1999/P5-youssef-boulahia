@@ -30,7 +30,7 @@ function creeDiv(data) {
         `
     <div class="tete">
     <a class="click" href = "article/article.html?id=${data._id}" >
-    <img src="${data.imageUrl}">
+    <img src="${data.imageUrl}"alt="${data.description}">
     <div class="text">
     <h2>${data.name}<h2>
     <p>${data.price / 100}€<p>

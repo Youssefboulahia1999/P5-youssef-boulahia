@@ -45,7 +45,7 @@ dataApi
 function creeDiv(data) {
     document.getElementById("main").innerHTML +=
         `<div class="tete">
-    <img src="${data.imageUrl}">
+    <img src="${data.imageUrl}" alt="${data.description}">
     <h2>${data.name}<h2>
     <p>Prix: ${data.price / 100}€<p>
     <select class="rtp" name="optionSelect" id="optionSelect"></select>
@@ -119,6 +119,7 @@ btnPanier.addEventListener("click", (event) => {
           id: cam._id,
       name: cam.name,
       price: cam.price / 100,
+      description: cam.description,
       optionPris: optionPris.value,
       quantite: quantiteChoisie,
   }
@@ -145,7 +146,7 @@ btnPanier.addEventListener("click", (event) => {
       enregistreLocal.push(optionProduit);
       localStorage.setItem("produit", JSON.stringify(enregistreLocal));
   };
-  
+  console.log(localStorage);
   //si il n'y a pas de produit dans le local alors il va  en cree (null,false)
   if (enregistreLocal) {
       //alors elle va ajoute le donnee plus popup va apparetre 
