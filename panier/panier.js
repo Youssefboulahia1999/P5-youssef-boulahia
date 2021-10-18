@@ -195,20 +195,15 @@ panier.insertAdjacentHTML("beforeend", structureFormulaire);
         boutonFormulaire.addEventListener("click", (e) => {
             e.preventDefault();
             
-            const info = {
-                contact: {
+            const contact = {
                     firstName: prenom.value,
                     lastName: nom.value,
                     address: adresse.value,
                     city: ville.value,
-                    codePostal: codePostal.value,
                     email: email.value,
-                },
-                products: {
-                    products: enregistreLocal.id,
-                }
+
             }
-            console.log(enregistreLocal.id);
+            console.log(contact);
 
             // //gestion de validation du formulaire 
             let regexNom = /^[a-z ,.'-]+$/i;
@@ -271,37 +266,35 @@ panier.insertAdjacentHTML("beforeend", structureFormulaire);
                 !regexNom.test(nom.value)
                 
                 ) {
-                    console.log("idff")
+                    console.log("FAUX")
+                    
                 }
                 
 
             else {
-                console.log("esduidf")
+                console.log("VRAI")
                 //metre les infos du formulaire dans le localstorage
                 //je met le formulaire et les produit selectionnes dans un objet a envoyer au serveur
-                const formulaireValue = localStorage.setItem("info", JSON.stringify(info));
+                const formulaireValue = localStorage.setItem("contact", JSON.stringify(contact));
                 //
-                const formulaire = JSON.parse(localStorage.getItem("info"));
-                console.log(info);
+                const formulaire = JSON.parse(localStorage.getItem("contact"));
+               
 
-                // const aEnvoyer = {
-                //     enregistreLocal,
-                //     info
-                // };
-                
-                for (o = 0; o < enregistreLocal.length; o++){
-                    var productsId = enregistreLocal[o].id;
-                    products.psuh(productsId);
-                }
-                console.log(productsId);
+                let products = [];
+                    for (o = 0; o < enregistreLocal.length; o++){
+                        var productsId = enregistreLocal[o].id;
+                        products.push(productsId);
+                    }
+                    console.log(products);
 
-
-let products = [];
-
-                //envoyer
+const aEnvoyer = {
+    enregistreLocal,
+    contact
+};
+//envoyer
                 const promise = fetch("http://localhost:3000/api/cameras/order", {
                     method: "POST",
-                    body: JSON.stringify(info),
+                    body: JSON.stringify(aEnvoyer),
                     headers: { "Content-Type": "application/json", },
                 });
 
