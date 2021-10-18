@@ -288,7 +288,7 @@ panier.insertAdjacentHTML("beforeend", structureFormulaire);
                     console.log(products);
 
 const aEnvoyer = {
-    enregistreLocal,
+    products,
     contact
 };
 //envoyer
