@@ -121,9 +121,8 @@ const liste = () => {
         const total = () => {
             //total du panier
             let prixTotalCalculer = [];
-
-
-
+            
+            
             for (let t = 0; t < enregistreLocal.length; t++) {
                 var fois = enregistreLocal[t].price * enregistreLocal[t].quantite;
                 console.log(fois);
@@ -184,18 +183,18 @@ Confirmation de la commande
 </div>
 `;
 
-            panier.insertAdjacentHTML("beforeend", structureFormulaire);
+
+panier.insertAdjacentHTML("beforeend", structureFormulaire);
         };
 
         afficherFormulaire();
-
-
+        
         //recuperation de value du formulaire
         //button fomrmuliare
         const boutonFormulaire = document.getElementById("envoyerFormulaire");
         boutonFormulaire.addEventListener("click", (e) => {
             e.preventDefault();
-
+            
             const info = {
                 contact: {
                     firstName: prenom.value,
@@ -206,10 +205,10 @@ Confirmation de la commande
                     email: email.value,
                 },
                 products: {
-                    products: enregistreLocal,
+                    products: enregistreLocal.id,
                 }
             }
-            console.log(info);
+            console.log(enregistreLocal.id);
 
             // //gestion de validation du formulaire 
             let regexNom = /^[a-z ,.'-]+$/i;
@@ -270,11 +269,11 @@ Confirmation de la commande
                 !regexNom.test(prenom.value) ||
                 !regexNom.test(ville.value) ||
                 !regexNom.test(nom.value)
-
-            ) {
-                console.log("idff")
-            }
-
+                
+                ) {
+                    console.log("idff")
+                }
+                
 
             else {
                 console.log("esduidf")
@@ -285,14 +284,24 @@ Confirmation de la commande
                 const formulaire = JSON.parse(localStorage.getItem("info"));
                 console.log(info);
 
-                const aEnvoyer = {
-                    enregistreLocal,
-                    info
-                };
+                // const aEnvoyer = {
+                //     enregistreLocal,
+                //     info
+                // };
+                
+                for (o = 0; o < enregistreLocal.length; o++){
+                    var productsId = enregistreLocal[o].id;
+                    products.psuh(productsId);
+                }
+                console.log(productsId);
+
+
+let products = [];
+
                 //envoyer
                 const promise = fetch("http://localhost:3000/api/cameras/order", {
                     method: "POST",
-                    body: JSON.stringify(aEnvoyer),
+                    body: JSON.stringify(info),
                     headers: { "Content-Type": "application/json", },
                 });
 
@@ -301,6 +310,20 @@ Confirmation de la commande
                     try {
                         const contenu = await response.json();
                         console.log(contenu);
+                        if (response.ok) {
+                            console.log(`resultat de response.ok: ${response.ok}`);
+
+                            //recuper l'id 
+                            console.log(contenu.orderId);
+
+                            //metre l'id dans le local storage
+                            localStorage.setItem("responseId", contenu.orderId);
+
+                            window.location = "confirmation-commande.html";
+                        } else{
+                            console.log(`reponse du serveur : ${response.status}`);
+                            alert(`Probleme avec le serveur:  erreur ${response.status}`);
+                        }
                     } catch (e) {
                         console.log("erreur du catch")
 
