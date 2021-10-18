@@ -306,7 +306,7 @@ const aEnvoyer = {
                         if (response.ok) {
                             console.log(`resultat de response.ok: ${response.ok}`);
 
-                            //recuper l'id 
+                            //recuper l'id  
                             console.log(contenu.orderId);
 
                             //metre l'id dans le local storage
