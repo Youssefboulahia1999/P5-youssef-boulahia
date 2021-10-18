@@ -153,23 +153,23 @@ const liste = () => {
     <h2>Remplissez le formulaire pour valider la commande</h2>
     <form class="form" action="#">
     <label for="prenom :">prenom
-    <div id="error1" style="color: white" class="error1">Veuillez renseigner vos données correctement</div></label>
+    <div id="error1" style="color: white" class="error1">Veuillez renseigner vos données correctement sans chiffre et caractère spécial</div></label>
     <input type="text" id="prenom" name="prenom" placeholder="prenom" required>
     
     <label for="nom">nom :
-    <div id="error2" style="color: white" class="error2">Veuillez renseigner vos données correctement</div></label>
+    <div id="error2" style="color: white" class="error2">Veuillez renseigner vos données correctement sans chiffre et caractère spécial</div></label>
     <input type="text" id="nom" name="nom" placeholder="nom" required>
     
     <label for="adresse">adresse :
-    <div id="error3" style="color: white" class="error3">Veuillez renseigner vos données correctement</div></label>
+    <div id="error3" style="color: white" class="error3">Veuillez renseigner vos données correctement exemple: 12 rue dupont </div></label>
     <textarea name="adresse" id="adresse" name="adresse" placeholder="adresse" required></textarea>
     
     <label for="ville">ville :
-    <div id="error4" style="color: white" class="error4">Veuillez renseigner vos données correctement</div></label>
+    <div id="error4" style="color: white" class="error4">Veuillez renseigner vos données correctement sans chiffre et caractère spécial</div></label>
 <input type="text" id="ville" name="ville" placeholder="ville" required>
 
 <label for="codePostal">codepostal :
-<div id="error5" style="color: white"  class="error5">Veuillez renseigner vos données correctement</div></label>
+<div id="error5" style="color: white"  class="error5">Veuillez renseigner vos données correctement a cinq chiffre</div></label>
 <input type="number" id="codePostal" name="codePostal" placeholder="codePostal" max="99999" required>
 
 <label for="Email">Email :
@@ -204,8 +204,12 @@ Confirmation de la commande
                     ville: ville.value,
                     codePostal: codePostal.value,
                     email: email.value,
+                },
+                produit: {
+                    enregistreLocal: enregistreLocal.value,
                 }
             }
+            console.log(info);
 
             // //gestion de validation du formulaire 
             let regexNom = /^[a-z ,.'-]+$/i;
@@ -259,10 +263,15 @@ Confirmation de la commande
                 const problemeF = document.getElementById("error6");
                 problemeF.style.color = "#0000";
             }
-            if (regexNom.test(prenom.value) &&
-            regexAddress.test(adresse.value) &&
-            regexCodePostal.test(codePostal.value) &&
-            regexEmail.test(email.value)) {
+            if (
+                !regexEmail.test(email.value) ||
+                !regexAddress.test(adresse.value) ||
+                !regexCodePostal.test(codePostal.value) ||
+                !regexNom.test(prenom.value) ||
+                !regexNom.test(ville.value) ||
+                !regexNom.test(nom.value)
+
+            ) {
                 console.log("idff")
             }
 
@@ -274,11 +283,11 @@ Confirmation de la commande
                 const formulaireValue = localStorage.setItem("info", JSON.stringify(info));
                 //
                 const formulaire = JSON.parse(localStorage.getItem("info"));
-                console.log(formulaire);
+                console.log(info);
 
                 const aEnvoyer = {
                     enregistreLocal,
-                    formulaire
+                    info
                 };
                 //envoyer
                 const promise = fetch("http://localhost:3000/api/cameras/order", {
@@ -296,6 +305,7 @@ Confirmation de la commande
                         console.log("erreur du catch")
 
                     }
+
                 })
 
             }
