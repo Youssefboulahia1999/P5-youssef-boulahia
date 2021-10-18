@@ -198,15 +198,15 @@ Confirmation de la commande
 
             const info = {
                 contact: {
-                    prenom: prenom.value,
-                    nom: nom.value,
-                    adresse: adresse.value,
-                    ville: ville.value,
+                    firstName: prenom.value,
+                    lastName: nom.value,
+                    address: adresse.value,
+                    city: ville.value,
                     codePostal: codePostal.value,
                     email: email.value,
                 },
-                produit: {
-                    enregistreLocal: enregistreLocal.value,
+                products: {
+                    products: enregistreLocal,
                 }
             }
             console.log(info);
