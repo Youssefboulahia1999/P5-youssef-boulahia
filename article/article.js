@@ -34,7 +34,7 @@ dataApi
         }
     }else {
         document.getElementById("error").innerHTML += `
-<h1 class = "error"> desole, mais la page est introuvable <h2>
+<h2 class = "error"> desole, mais la page est introuvable <h2>
 `
     }
         

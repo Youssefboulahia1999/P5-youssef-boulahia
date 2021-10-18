@@ -133,11 +133,12 @@ const liste = () => {
             //additionner le total
             const reducer = (acumulator, currentValeur) => acumulator + currentValeur;
             const prixTotal = prixTotalCalculer.reduce(reducer, 0);
-
+            
             const deuxieme = document.getElementById("deuxieme");
             deuxieme.innerHTML = `
-<h2 class="affichage-prix">Le prix total est de: ${prixTotal}€ </h2>`;
+            <h2 class="affichage-prix">Le prix total est de: ${prixTotal}€ </h2>`;
             console.log(deuxieme);
+            localStorage.setItem("prixTotal", JSON.stringify(prixTotal));
         }
         total();
 
@@ -146,7 +147,7 @@ const liste = () => {
         const afficherFormulaire = () => {
 
             const panier = document.querySelector("#main");
-
+            
             const structureFormulaire = `
     <div id="formulaire">
     <h2>Remplissez le formulaire pour valider la commande</h2>
@@ -312,7 +313,7 @@ const aEnvoyer = {
                             //metre l'id dans le local storage
                             localStorage.setItem("responseId", contenu.orderId);
 
-                            window.location = "confirmation-commande.html";
+                             window.location = "confirmation-commande.html";
                         } else{
                             console.log(`reponse du serveur : ${response.status}`);
                             alert(`Probleme avec le serveur:  erreur ${response.status}`);

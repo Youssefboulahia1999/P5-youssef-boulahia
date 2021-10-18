@@ -87,3 +87,10 @@ margin-bottom:10px;
     height:30px;
     border-radius:30px;
 }
+.paniervide{
+    width:300px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 30px;
+}
